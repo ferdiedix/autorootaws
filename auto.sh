@@ -39,46 +39,46 @@ ANIMATE_PID=$!
 
 # Langkah 1: Pindahkan authorized_keys
 mv /root/.ssh/authorized_keys /home/ubuntu/ > /dev/null 2>&1 || {
-    kill $ANIMATE_PID
+    kill $ANIMATE_PID >/dev/null 2>&1
     show_error "Gagal memindahkan authorized_keys"
 }
-kill $ANIMATE_PID && show_status "Berhasil memindahkan authorized_keys"  # <-- HAPUS TANDA ) DI AKHIR
+kill $ANIMATE_PID >/dev/null 2>&1 && show_status "Berhasil memindahkan authorized_keys"
 
 # Langkah 2: Ubah permission
 animate "Mengubah permissions..." &
 ANIMATE_PID=$!
 chmod 777 /home/ubuntu/authorized_keys > /dev/null 2>&1 || {
-    kill $ANIMATE_PID
+    kill $ANIMATE_PID >/dev/null 2>&1
     show_error "Gagal mengubah permissions ke 777"
 }
-kill $ANIMATE_PID && show_status "Berhasil mengubah permissions"
+kill $ANIMATE_PID >/dev/null 2>&1 && show_status "Berhasil mengubah permissions"
 
 # Langkah 3: Edit file
 animate "Memodifikasi authorized_keys..." &
 ANIMATE_PID=$!
 sed -i -E 's/(,?no-port-forwarding|,?no-agent-forwarding|,?no-X11-forwarding|,?command="echo '"'"'Please login as the user \\"ubuntu\\" rather than the user \\"root\\".'"'"';echo;sleep 10;exit 142")//g' /home/ubuntu/authorized_keys > /dev/null 2>&1 || {
-    kill $ANIMATE_PID
+    kill $ANIMATE_PID >/dev/null 2>&1
     show_error "Gagal memodifikasi authorized_keys"
 }
-kill $ANIMATE_PID && show_status "Berhasil memodifikasi authorized_keys"
+kill $ANIMATE_PID >/dev/null 2>&1 && show_status "Berhasil memodifikasi authorized_keys"
 
 # Langkah 4: Kembalikan permission
 animate "Mengembalikan permissions..." &
 ANIMATE_PID=$!
 chmod 600 /home/ubuntu/authorized_keys > /dev/null 2>&1 || {
-    kill $ANIMATE_PID
+    kill $ANIMATE_PID >/dev/null 2>&1
     show_error "Gagal mengubah permissions ke 600"
 }
-kill $ANIMATE_PID && show_status "Berhasil mengembalikan permissions"
+kill $ANIMATE_PID >/dev/null 2>&1 && show_status "Berhasil mengembalikan permissions"
 
 # Langkah 5: Pindahkan kembali
 animate "Mengembalikan file ke lokasi semula..." &
 ANIMATE_PID=$!
 mv /home/ubuntu/authorized_keys /root/.ssh/ > /dev/null 2>&1 || {
-    kill $ANIMATE_PID
+    kill $ANIMATE_PID >/dev/null 2>&1
     show_error "Gagal mengembalikan authorized_keys"
 }
-kill $ANIMATE_PID && show_status "Berhasil mengembalikan file ke lokasi semula"
+kill $ANIMATE_PID >/dev/null 2>&1 && show_status "Berhasil mengembalikan file ke lokasi semula"
 
 # Tampilkan pesan akhir
 echo -e "\e[36m"
