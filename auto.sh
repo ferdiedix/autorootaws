@@ -42,7 +42,7 @@ mv /root/.ssh/authorized_keys /home/ubuntu/ > /dev/null 2>&1 || {
     kill $ANIMATE_PID
     show_error "Gagal memindahkan authorized_keys"
 }
-kill $ANIMATE_PID && show_status "Berhasil memindahkan authorized_keys"  # Di sini sudah diperbaiki
+kill $ANIMATE_PID && show_status "Berhasil memindahkan authorized_keys"  # <-- HAPUS TANDA ) DI AKHIR
 
 # Langkah 2: Ubah permission
 animate "Mengubah permissions..." &
