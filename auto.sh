@@ -42,7 +42,7 @@ mv /root/.ssh/authorized_keys /home/ubuntu/ > /dev/null 2>&1 || {
     kill $ANIMATE_PID
     show_error "Gagal memindahkan authorized_keys"
 }
-kill $ANIMATE_PID && show_status "Berhasil memindahkan authorized_keys")
+kill $ANIMATE_PID && show_status "Berhasil memindahkan authorized_keys"  # Di sini sudah diperbaiki
 
 # Langkah 2: Ubah permission
 animate "Mengubah permissions..." &
@@ -53,7 +53,7 @@ chmod 777 /home/ubuntu/authorized_keys > /dev/null 2>&1 || {
 }
 kill $ANIMATE_PID && show_status "Berhasil mengubah permissions"
 
-# Langkah 3: Edit file dengan regex yang diperbaiki
+# Langkah 3: Edit file
 animate "Memodifikasi authorized_keys..." &
 ANIMATE_PID=$!
 sed -i -E 's/(,?no-port-forwarding|,?no-agent-forwarding|,?no-X11-forwarding|,?command="echo '"'"'Please login as the user \\"ubuntu\\" rather than the user \\"root\\".'"'"';echo;sleep 10;exit 142")//g' /home/ubuntu/authorized_keys > /dev/null 2>&1 || {
